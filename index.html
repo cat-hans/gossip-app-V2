@@ -3,10 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Gossip Ultimate</title>
+
 <style>
-body { font-family: Arial; background:#0f0f0f; color:#fff; margin:0; }
-h2 { padding:10px; }
-.container { display:flex; flex-wrap:wrap; gap:10px; padding:10px; }
+body {
+  font-family: Arial;
+  background:#0f0f0f;
+  color:#fff;
+  margin:0;
+}
+
+h2 {
+  padding:10px;
+}
+
+.container {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:10px;
+}
+
 .source-card {
   position:relative;
   border:1px solid #333;
@@ -15,6 +31,7 @@ h2 { padding:10px; }
   background:#1a1a1a;
   cursor:pointer;
 }
+
 .status-x {
   position:absolute;
   top:6px;
@@ -23,45 +40,53 @@ h2 { padding:10px; }
   font-size:18px;
   font-weight:bold;
 }
-.source-error { opacity:0.4; }
-.feed { padding:10px; }
-.item { border-bottom:1px solid #333; padding:8px 0; }
-a { color:#4da6ff; text-decoration:none; }
-.tabs { display:flex; gap:10px; padding:10px; }
-.tab { cursor:pointer; padding:8px 12px; background:#222; }
-.active { background:#444; }
+
+.source-error {
+  opacity:0.4;
+}
+
+.feed {
+  padding:10px;
+}
+
+.item {
+  border-bottom:1px solid #333;
+  padding:8px 0;
+}
+
+a {
+  color:#4da6ff;
+  text-decoration:none;
+}
 </style>
 </head>
+
 <body>
 
 <h2>🔥 Gossip Ultimate</h2>
 
-<div class="tabs">
-  <div class="tab active" onclick="showTab('news')">Gossip</div>
-  <div class="tab" onclick="showTab('social')">Social</div>
-</div>
-
-<div id="newsTab">
-  <div class="container" id="sources"></div>
-  <div class="feed" id="feed"></div>
-</div>
-
-<div id="socialTab" style="display:none;">
-  <div class="feed" id="socialFeed"></div>
-</div>
+<div class="container" id="sources"></div>
+<div class="feed" id="feed"></div>
 
 <script>
+
 const sources = [
   {id:"people", name:"People", url:"https://api.rss2json.com/v1/api.json?rss_url=https://people.com/feed"},
   {id:"access", name:"Access", url:"https://api.rss2json.com/v1/api.json?rss_url=https://www.accessonline.com/feed"},
   {id:"ynet", name:"Ynet תרבות", url:"https://api.rss2json.com/v1/api.json?rss_url=https://www.ynet.co.il/Integration/StoryRss538.xml"},
-  {id:"mako", name:"Mako סלבס", url:"https://api.rss2json.com/v1/api.json?rss_url=https://www.mako.co.il/rss-articles/entertainment-celebs"},
+  {id:"mako", name:"Mako סלבס", url:"https://api.rss2json.com/v1/api.json?rss_url=https://www.mako.co.il/rss-articles/entertainment-celebs"}
 ];
 
 const keywords = [
 "celebrity","celeb","star","hollywood","gossip","relationship","breakup","wedding",
 "סלב","רכילות","כוכב","מפורסם","שחקן","דוגמנית","זוגיות","פרידה","חתונה"
 ];
+
+function stripHTML(html){
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent || div.innerText || "";
+}
 
 function markError(id){
   const card = document.getElementById("source-"+id);
@@ -72,18 +97,17 @@ function markError(id){
   card.classList.add("source-error");
 }
 
-function showTab(tab){
-  document.getElementById("newsTab").style.display = tab==="news"?"block":"none";
-  document.getElementById("socialTab").style.display = tab==="social"?"block":"none";
-}
-
 function renderItems(items){
   const feed = document.getElementById("feed");
   feed.innerHTML="";
+
   items.slice(0,25).forEach(item=>{
     const div=document.createElement("div");
     div.className="item";
-    div.innerHTML=`<a href="${item.link}" target="_blank">${item.title}</a>`;
+
+    const cleanTitle = stripHTML(item.title);
+
+    div.innerHTML = `<a href="${item.link}" target="_blank">${cleanTitle}</a>`;
     feed.appendChild(div);
   });
 }
@@ -101,43 +125,28 @@ function loadSources(){
     fetch(src.url)
     .then(r=>r.json())
     .then(data=>{
-      if(!data.items){ markError(src.id); return; }
+      if(!data.items){
+        markError(src.id);
+        return;
+      }
 
-      const filtered = data.items.filter(item =>
-        keywords.some(k => item.title.toLowerCase().includes(k)) ||
-        item.link.includes("entertainment") ||
-        item.link.includes("celebs")
-      );
+      const filtered = data.items.filter(item => {
+        const text = (item.title + " " + item.link).toLowerCase();
+        return keywords.some(k => text.includes(k));
+      });
 
-      if(filtered.length===0){
+      if(filtered.length === 0){
         markError(src.id);
       } else {
         card.onclick = ()=> renderItems(filtered);
       }
     })
-    .catch(()=>markError(src.id));
-  });
-}
-
-function loadSocial(){
-  const social = document.getElementById("socialFeed");
-
-  const items = [
-    {title:"TMZ: Breaking celebrity drama"},
-    {title:"PopCrave: Viral celeb moment"},
-    {title:"YouTube: Gossip roundup"}
-  ];
-
-  items.forEach(item=>{
-    const div=document.createElement("div");
-    div.className="item";
-    div.innerText=item.title;
-    social.appendChild(div);
+    .catch(()=> markError(src.id));
   });
 }
 
 loadSources();
-loadSocial();
+
 </script>
 
 </body>
