@@ -29,7 +29,6 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .search-input:focus{background:rgba(255,255,255,0.3)}
 .search-x{position:absolute;left:9px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.7);font-size:14px;cursor:pointer;display:none;padding:0;line-height:1}
 .search-go{padding:7px 13px;background:rgba(255,255,255,0.25);border:1.5px solid rgba(255,255,255,0.4);border-radius:20px;color:white;font-family:'Heebo',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
-.search-go:active{background:rgba(255,255,255,0.4)}
 .tabs{display:flex;background:white;border-bottom:1px solid var(--border);position:sticky;top:100px;z-index:99;overflow-x:auto}
 .tabs::-webkit-scrollbar{display:none}
 .tab-btn{flex:1;min-width:55px;padding:9px 3px;font-family:'Heebo',sans-serif;font-size:11px;font-weight:500;color:var(--muted);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:2px}
@@ -79,7 +78,6 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .action-btn:active{background:var(--pink-light)}
 .action-btn.saved{color:var(--pink);border-color:var(--pink);background:var(--pink-light)}
 .wa-btn{color:#25D366;border-color:rgba(37,211,102,0.3)}
-.wa-btn:active{background:#f0fff4}
 .rating-bar{display:flex;align-items:center;gap:5px;margin-top:7px;padding-top:7px;border-top:1px solid var(--border)}
 .rating-label{font-size:10px;color:var(--muted);white-space:nowrap}
 .stars-row{display:flex;gap:1px}
@@ -104,10 +102,10 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .preset-btn.added{background:var(--pink-light);border-color:var(--pink);color:var(--pink)}
 .preset-btn.il-btn{color:#1565C0;border-color:rgba(21,101,192,0.2)}
 .preset-btn.il-btn.added{background:#e8f4fd;border-color:#1565C0;color:#1565C0}
-.preset-btn.site-fail{box-shadow:0 0 0 2px #f44336}
-.site-status-dot{position:absolute;top:-3px;left:-3px;width:12px;height:12px;border-radius:50%;font-size:8px;display:none;align-items:center;justify-content:center;font-weight:700;border:1.5px solid white}
-.site-status-dot.ok{display:flex;background:#4caf50;color:white}
-.site-status-dot.fail{display:flex;background:#f44336;color:white}
+.preset-btn.fail{box-shadow:0 0 0 2px #f44336}
+.status-dot{position:absolute;top:-4px;left:-4px;width:13px;height:13px;border-radius:50%;font-size:8px;display:none;align-items:center;justify-content:center;font-weight:900;border:2px solid white}
+.status-dot.ok{display:flex;background:#4caf50;color:white}
+.status-dot.fail{display:flex;background:#f44336;color:white}
 .add-form{display:flex;gap:7px;margin-bottom:5px}
 .add-form input{flex:1;padding:9px 11px;border:1.5px solid var(--border);border-radius:11px;font-family:'Heebo',sans-serif;font-size:13px;color:var(--text);background:white;direction:ltr;text-align:left;outline:none}
 .add-form input:focus{border-color:var(--pink)}
@@ -123,23 +121,23 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .site-info-name{font-size:13px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .fail-tag{font-size:9px;background:#f44336;color:white;padding:1px 5px;border-radius:10px}
 .site-info-url{font-size:10px;color:var(--muted);direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.del-btn{width:26px;height:26px;border-radius:50%;border:none;background:none;color:#ccc;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-/* STARS PAGE */
+.del-btn{width:26px;height:26px;border-radius:50%;border:none;background:none;color:#bbb;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* STARS */
 .star-wrap{position:relative;flex:1}
 .star-input{width:100%;padding:9px 11px;border:1.5px solid rgba(255,193,7,0.4);border-radius:11px;font-family:'Heebo',sans-serif;font-size:13px;color:var(--text);background:white;outline:none}
 .star-input:focus{border-color:var(--gold)}
-.ac-list{position:absolute;top:calc(100% + 4px);right:0;left:0;background:white;border:1px solid var(--border);border-radius:11px;z-index:300;max-height:220px;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,0.12);display:none}
+.ac-list{position:absolute;top:calc(100% + 4px);right:0;left:0;background:white;border:1px solid var(--border);border-radius:11px;z-index:300;max-height:220px;overflow-y:auto;box-shadow:0 6px 24px rgba(0,0,0,0.13);display:none}
 .ac-list.show{display:block}
-.ac-item{padding:10px 13px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);user-select:none}
+.ac-item{padding:10px 13px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);user-select:none;-webkit-user-select:none}
 .ac-item:last-child{border-bottom:none}
-.ac-item:active,.ac-item.hover{background:var(--pink-light);color:var(--pink-dark)}
+.ac-item.active-ac{background:var(--pink-light);color:var(--pink-dark)}
 .star-input-form{display:flex;gap:7px;margin-bottom:5px;align-items:flex-start}
 .star-add-btn{padding:9px 13px;background:linear-gradient(135deg,#FFD54F,#FFA000);color:#5d4037;border:none;border-radius:11px;font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .star-item{display:flex;align-items:center;gap:9px;padding:10px 11px;background:white;border-radius:13px;margin-bottom:6px;border:1px solid rgba(255,193,7,0.3)}
 .star-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#FFD54F,#FFA000);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#5d4037;flex-shrink:0}
 .star-name{flex:1;font-size:13px;font-weight:600;color:var(--text)}
-.star-del{width:26px;height:26px;border-radius:50%;border:none;background:none;color:#aaa;font-size:19px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:300}
-.star-del:active{color:#c62828}
+.star-del{width:28px;height:28px;border-radius:50%;border:1.5px solid #ddd;background:white;color:#999;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s}
+.star-del:active{background:#fff0f0;color:#c62828;border-color:#f44336}
 .saved-meta{font-size:11px;color:var(--muted);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between}
 .clear-btn{padding:3px 9px;border:1.5px solid var(--border);border-radius:20px;background:white;font-family:'Heebo',sans-serif;font-size:10px;color:var(--muted);cursor:pointer}
 </style>
@@ -169,7 +167,6 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
   <button class="tab-btn" id="tb-sites" onclick="switchTab('sites')">🌐 אתרים</button>
 </div>
 
-<!-- FEED -->
 <div class="page active" id="page-feed">
   <div class="feed-top">
     <div class="update-time" id="update-time">לחץ רענן לטעינה</div>
@@ -202,16 +199,15 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
   </div>
 </div>
 
-<!-- SAVED -->
 <div class="page" id="page-saved"><div id="saved-header"></div><div id="saved-content"></div></div>
 
-<!-- STARS -->
 <div class="page" id="page-stars">
   <div class="section-label">הכוכבים שלי</div>
-  <p style="font-size:12px;color:var(--muted);margin-bottom:11px;line-height:1.5">הוסף שמות כוכבים באנגלית. החיפוש מוצא שם פרטי, שם משפחה, או שם מלא.</p>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:11px;line-height:1.5">הוסף שמות כוכבים באנגלית. מחפש שם פרטי, שם משפחה, או שם מלא.</p>
   <div class="star-input-form">
     <div class="star-wrap">
-      <input class="star-input" id="star-input" type="text" placeholder="Taylor Swift, Beyonce..." autocomplete="off" autocorrect="off" autocapitalize="words" oninput="onStarInput(this.value)" onkeydown="onStarKey(event)"/>
+      <input class="star-input" id="star-input" type="text" placeholder="Taylor Swift, Ashton Kutcher..." autocomplete="off" autocorrect="off" autocapitalize="words"
+        oninput="onStarInput(this.value)" onkeydown="onStarKey(event)"/>
       <div class="ac-list" id="ac-list"></div>
     </div>
     <button class="star-add-btn" onclick="addStar()">הוסף ⭐</button>
@@ -220,41 +216,42 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
   <div id="stars-list"></div>
 </div>
 
-<!-- SITES -->
 <div class="page" id="page-sites">
   <div class="section-label">🌍 אתרים באנגלית — לחץ להוסיף/להסיר</div>
   <div class="preset-grid">
-    <button class="preset-btn" id="pb-tmz" onclick="toggleSite('tmz','TMZ','🎬',false,'https://www.tmz.com/feed/')">TMZ<span class="site-status-dot" id="st-tmz"></span></button>
-    <button class="preset-btn" id="pb-pagesix" onclick="toggleSite('pagesix','Page Six','📸',false,'https://pagesix.com/feed/')">Page Six<span class="site-status-dot" id="st-pagesix"></span></button>
-    <button class="preset-btn" id="pb-people" onclick="toggleSite('people','People','⭐',false,null,'people.com')">People<span class="site-status-dot" id="st-people"></span></button>
-    <button class="preset-btn" id="pb-eonline" onclick="toggleSite('eonline','E! Online','💃',false,'https://www.eonline.com/syndication/feeds/rssfeeds/topstories.xml')">E! Online<span class="site-status-dot" id="st-eonline"></span></button>
-    <button class="preset-btn" id="pb-usmagazine" onclick="toggleSite('usmagazine','Us Weekly','💫',false,'https://www.usmagazine.com/feed/')">Us Weekly<span class="site-status-dot" id="st-usmagazine"></span></button>
-    <button class="preset-btn" id="pb-justjared" onclick="toggleSite('justjared','Just Jared','📷',false,'https://www.justjared.com/feed/')">Just Jared<span class="site-status-dot" id="st-justjared"></span></button>
-    <button class="preset-btn" id="pb-dailymail" onclick="toggleSite('dailymail','Daily Mail','🗞',false,'https://www.dailymail.co.uk/articles.rss')">Daily Mail<span class="site-status-dot" id="st-dailymail"></span></button>
-    <button class="preset-btn" id="pb-hollywoodlife" onclick="toggleSite('hollywoodlife','Hollywood Life','🌟',false,'https://hollywoodlife.com/feed/')">HWood Life<span class="site-status-dot" id="st-hollywoodlife"></span></button>
-    <button class="preset-btn" id="pb-perezhilton" onclick="toggleSite('perezhilton','Perez Hilton','💅',false,'https://perezhilton.com/feed/')">Perez Hilton<span class="site-status-dot" id="st-perezhilton"></span></button>
-    <button class="preset-btn" id="pb-radaronline" onclick="toggleSite('radaronline','Radar Online','📡',false,null,'radaronline.com')">Radar Online<span class="site-status-dot" id="st-radaronline"></span></button>
-    <button class="preset-btn" id="pb-etonline" onclick="toggleSite('etonline','E. Tonight','🎬',false,null,'etonline.com')">E. Tonight<span class="site-status-dot" id="st-etonline"></span></button>
-    <button class="preset-btn" id="pb-accessonline" onclick="toggleSite('accessonline','Access HWood','🎤',false,null,'accessonline.com')">Access HWood<span class="site-status-dot" id="st-accessonline"></span></button>
+    <button class="preset-btn" id="pb-tmz.com" onclick="toggleSite('tmz.com','TMZ','🎬',false)">TMZ<span class="status-dot" id="st-tmz.com"></span></button>
+    <button class="preset-btn" id="pb-pagesix.com" onclick="toggleSite('pagesix.com','Page Six','📸',false)">Page Six<span class="status-dot" id="st-pagesix.com"></span></button>
+    <button class="preset-btn" id="pb-people.com" onclick="toggleSite('people.com','People','⭐',false)">People<span class="status-dot" id="st-people.com"></span></button>
+    <button class="preset-btn" id="pb-eonline.com" onclick="toggleSite('eonline.com','E! Online','💃',false)">E! Online<span class="status-dot" id="st-eonline.com"></span></button>
+    <button class="preset-btn" id="pb-usmagazine.com" onclick="toggleSite('usmagazine.com','Us Weekly','💫',false)">Us Weekly<span class="status-dot" id="st-usmagazine.com"></span></button>
+    <button class="preset-btn" id="pb-justjared.com" onclick="toggleSite('justjared.com','Just Jared','📷',false)">Just Jared<span class="status-dot" id="st-justjared.com"></span></button>
+    <button class="preset-btn" id="pb-dailymail.co.uk" onclick="toggleSite('dailymail.co.uk','Daily Mail','🗞',false)">Daily Mail<span class="status-dot" id="st-dailymail.co.uk"></span></button>
+    <button class="preset-btn" id="pb-hollywoodlife.com" onclick="toggleSite('hollywoodlife.com','Hollywood Life','🌟',false)">HWood Life<span class="status-dot" id="st-hollywoodlife.com"></span></button>
+    <button class="preset-btn" id="pb-perezhilton.com" onclick="toggleSite('perezhilton.com','Perez Hilton','💬',false)">Perez Hilton<span class="status-dot" id="st-perezhilton.com"></span></button>
+    <button class="preset-btn" id="pb-radaronline.com" onclick="toggleSite('radaronline.com','Radar Online','📡',false)">Radar Online<span class="status-dot" id="st-radaronline.com"></span></button>
+    <button class="preset-btn" id="pb-etonline.com" onclick="toggleSite('etonline.com','ET Online','🎬',false)">ET Online<span class="status-dot" id="st-etonline.com"></span></button>
+    <button class="preset-btn" id="pb-accessonline.com" onclick="toggleSite('accessonline.com','Access HWood','🎤',false)">Access HWood<span class="status-dot" id="st-accessonline.com"></span></button>
+    <button class="preset-btn" id="pb-theshaderoom.com" onclick="toggleSite('theshaderoom.com','Shade Room','🌑',false)">Shade Room<span class="status-dot" id="st-theshaderoom.com"></span></button>
+    <button class="preset-btn" id="pb-buzzfeed.com" onclick="toggleSite('buzzfeed.com','BuzzFeed','🐝',false,'https://www.buzzfeed.com/celebrity.xml')">BuzzFeed<span class="status-dot" id="st-buzzfeed.com"></span></button>
+    <button class="preset-btn" id="pb-cosmopolitan.com" onclick="toggleSite('cosmopolitan.com','Cosmo','💋',false,'https://www.cosmopolitan.com/rss/all.xml')">Cosmo<span class="status-dot" id="st-cosmopolitan.com"></span></button>
   </div>
   <div class="add-form">
-    <input type="url" id="en-url-input" placeholder="כתובת RSS אנגלית" inputmode="url" autocomplete="off" autocorrect="off"/>
+    <input type="url" id="en-url-input" placeholder="למשל: cosmopolitan.com או https://example.com/feed" inputmode="url" autocomplete="off" autocorrect="off" style="font-size:11px"/>
     <button class="add-btn" onclick="addManual(false)">הוסף</button>
   </div>
   <div class="err-msg" id="en-err-msg"></div>
-
   <div class="section-label il">🇮🇱 אתרים ישראלים — לחץ להוסיף/להסיר</div>
   <div class="preset-grid">
-    <button class="preset-btn il-btn" id="pb-ynet" onclick="toggleSite('ynet','ynet בידור','📺',true,'https://www.ynet.co.il/Integration/StoryRss2.aspx?id=6')">ynet בידור<span class="site-status-dot" id="st-ynet"></span></button>
-    <button class="preset-btn il-btn" id="pb-mako" onclick="toggleSite('mako','mako סלבס','🎭',true,'https://www.mako.co.il/rss/entertainment-celebs.xml')">mako סלבס<span class="site-status-dot" id="st-mako"></span></button>
-    <button class="preset-btn il-btn" id="pb-walla" onclick="toggleSite('walla','וואלה סלבס','💋',true,null,'celebs.walla.co.il')">וואלה סלבס<span class="site-status-dot" id="st-walla"></span></button>
-    <button class="preset-btn il-btn" id="pb-haaretz" onclick="toggleSite('haaretz','הארץ גלריה','🗞',true,null,'haaretz.co.il')">הארץ גלריה<span class="site-status-dot" id="st-haaretz"></span></button>
-    <button class="preset-btn il-btn" id="pb-laisha" onclick="toggleSite('laisha','לאישה','👗',true,null,'laisha.co.il')">לאישה<span class="site-status-dot" id="st-laisha"></span></button>
-    <button class="preset-btn il-btn" id="pb-ynetplus" onclick="toggleSite('ynetplus','ynet פלוס','⭐',true,'https://www.ynet.co.il/Integration/StoryRss2.aspx?id=185')">ynet פלוס<span class="site-status-dot" id="st-ynetplus"></span></button>
-    <button class="preset-btn il-btn" id="pb-n12" onclick="toggleSite('n12','N12 בידור','📡',true,null,'n12.co.il')">N12 בידור<span class="site-status-dot" id="st-n12"></span></button>
+    <button class="preset-btn il-btn" id="pb-ynet-bidu" onclick="toggleSite('ynet-bidu','ynet בידור','📺',true,'https://ynet.co.il/Integration/StoryRss2.aspx?id=6')">ynet בידור<span class="status-dot" id="st-ynet-bidu"></span></button>
+    <button class="preset-btn il-btn" id="pb-mako-celebs" onclick="toggleSite('mako-celebs','mako סלבס','🎭',true,'https://mako.co.il/rss/entertainment-celebs.xml')">mako סלבס<span class="status-dot" id="st-mako-celebs"></span></button>
+    <button class="preset-btn il-btn" id="pb-walla-celebs" onclick="toggleSite('walla-celebs','וואלה סלבס','💋',true)">וואלה סלבס<span class="status-dot" id="st-walla-celebs"></span></button>
+    <button class="preset-btn il-btn" id="pb-haaretz-gl" onclick="toggleSite('haaretz-gl','הארץ גלריה','🗞',true)">הארץ גלריה<span class="status-dot" id="st-haaretz-gl"></span></button>
+    <button class="preset-btn il-btn" id="pb-laisha" onclick="toggleSite('laisha','לאישה','👗',true)">לאישה<span class="status-dot" id="st-laisha"></span></button>
+    <button class="preset-btn il-btn" id="pb-ynet-plus" onclick="toggleSite('ynet-plus','ynet פלוס','⭐',true,'https://ynet.co.il/Integration/StoryRss2.aspx?id=185')">ynet פלוס<span class="status-dot" id="st-ynet-plus"></span></button>
+    <button class="preset-btn il-btn" id="pb-n12" onclick="toggleSite('n12','N12 בידור','📡',true)">N12 בידור<span class="status-dot" id="st-n12"></span></button>
   </div>
   <div class="add-form">
-    <input type="url" id="il-url-input" placeholder="כתובת RSS ישראלית" inputmode="url" autocomplete="off" autocorrect="off"/>
+    <input type="url" id="il-url-input" placeholder="למשל: maariv.co.il או https://example.co.il/feed" inputmode="url" autocomplete="off" autocorrect="off" style="font-size:11px"/>
     <button class="add-btn il" onclick="addManual(true)">הוסף</button>
   </div>
   <div class="err-msg" id="il-err-msg"></div>
@@ -265,25 +262,29 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 <script>
 const RSS_PROXY = "https://api.rss2json.com/v1/api.json?rss_url=";
 const LABELS = ['','קצת','בינוני','טוב','מעניין','מאוד!'];
-
-// Keyword lists
 const EN_KW = ['celebrity','celeb','star','stars','gossip','exclusive','breaking','viral','trending','scandal','drama','rumors','allegedly','spotted','fans','react','relationship','breakup','dating','instagram','pregnant','baby','wedding','divorce','affair'];
 const IL_KW = ['רכילות','סלבס','סלב','ברנז','כוכבים','כוכב','כוכבת','בידור','תרבות','זוגיות','אופנה','שחקן','שחקנית','זמר','זמרת','פרידה','הריון','חתונה','דייט','מפורסם','מפורסמת','שמועות','נחשף','חשפה','סערה','דרמה','עוקבים','אינסטגרם','טיקטוק','מעריצים','הגיבו','ויראלי'];
 
-// Celeb autocomplete list
-const CELEBS = ['Taylor Swift','Beyonce','Kim Kardashian','Kylie Jenner','Kendall Jenner','Selena Gomez','Ariana Grande','Billie Eilish','Dua Lipa','Lady Gaga','Rihanna','Jennifer Lopez','Justin Bieber','Justin Timberlake','Drake','The Weeknd','Ed Sheeran','Harry Styles','Brad Pitt','Angelina Jolie','Jennifer Aniston','George Clooney','Leonardo DiCaprio','Tom Cruise','Johnny Depp','Amber Heard','Will Smith','Jada Pinkett Smith','Chris Hemsworth','Chris Evans','Robert Downey Jr','Zendaya','Tom Holland','Dwayne Johnson','Kevin Hart','Ryan Reynolds','Blake Lively','Gal Gadot','Margot Robbie','Emma Stone','Ryan Gosling','Scarlett Johansson','Natalie Portman','Britney Spears','Paris Hilton','Lindsay Lohan','Miley Cyrus','Cardi B','Nicki Minaj','Megan Fox','Machine Gun Kelly','Pete Davidson','Kanye West','Adele','Post Malone','Bad Bunny','Shakira','Jennifer Lawrence','Anne Hathaway','Meryl Streep','Nicole Kidman','Reese Witherspoon','Sofia Vergara','Penelope Cruz'];
+const CELEBS = ['Ashton Kutcher','Mila Kunis','Taylor Swift','Beyonce','Kim Kardashian','Kylie Jenner','Kendall Jenner','Selena Gomez','Ariana Grande','Billie Eilish','Dua Lipa','Lady Gaga','Rihanna','Jennifer Lopez','Justin Bieber','Justin Timberlake','Jessica Biel','Drake','The Weeknd','Ed Sheeran','Harry Styles','Brad Pitt','Angelina Jolie','Jennifer Aniston','George Clooney','Leonardo DiCaprio','Tom Cruise','Johnny Depp','Amber Heard','Will Smith','Jada Pinkett Smith','Chris Hemsworth','Chris Evans','Robert Downey Jr','Zendaya','Tom Holland','Dwayne Johnson','Kevin Hart','Ryan Reynolds','Blake Lively','Gal Gadot','Margot Robbie','Emma Stone','Ryan Gosling','Scarlett Johansson','Natalie Portman','Britney Spears','Paris Hilton','Lindsay Lohan','Miley Cyrus','Cardi B','Nicki Minaj','Megan Fox','Machine Gun Kelly','Pete Davidson','Kanye West','Adele','Post Malone','Bad Bunny','Shakira','Jennifer Lawrence','Anne Hathaway','Meryl Streep','Nicole Kidman','Reese Witherspoon','Sofia Vergara','Penelope Cruz','Chris Pratt','Anna Faris','Ben Affleck','Jennifer Garner','Matt Damon','Oprah Winfrey','Ellen DeGeneres','Portia de Rossi','Chrissy Teigen','John Legend','Katy Perry','Orlando Bloom','Adam Levine','Behati Prinsloo','Hailey Bieber','Sophie Turner','Joe Jonas','Priyanka Chopra','Nick Jonas','Gigi Hadid','Bella Hadid','Zayn Malik','Cara Delevingne'];
 
 let sites=[], stars=[], saved=[], allArticles=[], searchExtra=[];
 let filterCount=3, activeView='all', recOn=false, searchQuery='';
 let prefs={keywords:{},sources:{},totalRatings:0};
 let siteStatuses={};
 
+// --- DOMAIN HELPERS ---
+function getDomain(id){
+  // For Israeli sites with explicit IDs like 'ynet-bidu', use Google News
+  // For EN sites, id IS the domain like 'tmz.com'
+  return id;
+}
+
 function loadData(){
-  try{sites=JSON.parse(localStorage.getItem('g_sites_v5')||'null')||[
-    {id:'tmz',name:'TMZ',icon:'🎬',il:false,feed:'https://www.tmz.com/feed/',googleDomain:null},
-    {id:'pagesix',name:'Page Six',icon:'📸',il:false,feed:'https://pagesix.com/feed/',googleDomain:null},
-    {id:'ynet',name:'ynet בידור',icon:'📺',il:true,feed:'https://www.ynet.co.il/Integration/StoryRss2.aspx?id=6',googleDomain:null},
-    {id:'mako',name:'mako סלבס',icon:'🎭',il:true,feed:'https://www.mako.co.il/rss/entertainment-celebs.xml',googleDomain:null},
+  try{sites=JSON.parse(localStorage.getItem('g_sites_v6')||'null')||[
+    {id:'tmz.com',name:'TMZ',icon:'🎬',il:false,feed:null},
+    {id:'pagesix.com',name:'Page Six',icon:'📸',il:false,feed:null},
+    {id:'ynet-bidu',name:'ynet בידור',icon:'📺',il:true,feed:'https://ynet.co.il/Integration/StoryRss2.aspx?id=6'},
+    {id:'mako-celebs',name:'mako סלבס',icon:'🎭',il:true,feed:'https://mako.co.il/rss/entertainment-celebs.xml'},
   ];}catch(e){sites=[];}
   try{stars=JSON.parse(localStorage.getItem('g_stars')||'[]');}catch(e){stars=[];}
   try{saved=JSON.parse(localStorage.getItem('g_saved')||'[]');}catch(e){saved=[];}
@@ -293,28 +294,26 @@ function loadData(){
 function persist(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
 // --- LEARNING ---
-function extractWords(text){return(text||'').toLowerCase().replace(/[^a-zא-ת\s]/g,' ').split(/\s+/).filter(w=>w.length>2);}
+function extractWords(t){return(t||'').toLowerCase().replace(/[^a-zא-ת\s]/g,' ').split(/\s+/).filter(w=>w.length>2);}
 function learnFromRating(art,rating){
-  const signal=rating-3;
+  const sig=rating-3;
   extractWords((art._origTitle||'')+(art.title||'')).forEach(w=>{
     if(!prefs.keywords[w])prefs.keywords[w]={sum:0,count:0};
-    prefs.keywords[w].sum+=signal;prefs.keywords[w].count++;
+    prefs.keywords[w].sum+=sig;prefs.keywords[w].count++;
   });
   const src=art._source;
   if(!prefs.sources[src])prefs.sources[src]={sum:0,count:0};
-  prefs.sources[src].sum+=signal;prefs.sources[src].count++;
-  prefs.totalRatings=(prefs.totalRatings||0)+1;
-  persist('g_prefs',prefs);
+  prefs.sources[src].sum+=sig;prefs.sources[src].count++;
+  prefs.totalRatings=(prefs.totalRatings||0)+1;persist('g_prefs',prefs);
 }
 function unlearnRating(art,old){
-  const signal=old-3;
+  const sig=old-3;
   extractWords((art._origTitle||'')+(art.title||'')).forEach(w=>{
-    if(prefs.keywords[w]){prefs.keywords[w].sum-=signal;prefs.keywords[w].count=Math.max(0,prefs.keywords[w].count-1);}
+    if(prefs.keywords[w]){prefs.keywords[w].sum-=sig;prefs.keywords[w].count=Math.max(0,prefs.keywords[w].count-1);}
   });
   const src=art._source;
-  if(prefs.sources[src]){prefs.sources[src].sum-=signal;prefs.sources[src].count=Math.max(0,prefs.sources[src].count-1);}
-  prefs.totalRatings=Math.max(0,(prefs.totalRatings||1)-1);
-  persist('g_prefs',prefs);
+  if(prefs.sources[src]){prefs.sources[src].sum-=sig;prefs.sources[src].count=Math.max(0,prefs.sources[src].count-1);}
+  prefs.totalRatings=Math.max(0,(prefs.totalRatings||1)-1);persist('g_prefs',prefs);
 }
 function scoreArticle(art){
   if(prefs.totalRatings<3)return 0;
@@ -327,71 +326,189 @@ function scoreArticle(art){
   return s;
 }
 
-// --- STARS MATCHING — OR logic per word, AND not required ---
-// Each word in the star name is searched independently (OR between words)
-// So "Taylor Swift" matches articles containing "taylor" OR "swift"
-// Case insensitive, searches ONLY in original English title
+// --- STAR MATCHING ---
+// AND logic: all words in star name must appear in original English title
+// Case insensitive, matches partial words too
 function matchStar(art){
   if(!stars.length)return false;
-  const hay=(art._origTitle||'').toLowerCase();
+  // Search in all fields - original title, translated title, and summary
+  const hay=[art._origTitle||'',art.title||'',art.summary||''].join(' ').toLowerCase();
   return stars.some(star=>{
-    const words=star.toLowerCase().split(/\s+/).filter(w=>w.length>1);
-    // match if ANY word from star name appears in original title
-    return words.some(w=>hay.includes(w));
+    const words=star.toLowerCase().split(/\s+/).filter(w=>w.length>0);
+    return words.every(w=>hay.includes(w));
   });
 }
 
 // --- AUTOCOMPLETE ---
-let acIndex=-1;
+let acIdx=-1;
 function onStarInput(val){
-  acIndex=-1;
-  const q=val.trim().toLowerCase();
+  acIdx=-1;
   const list=document.getElementById('ac-list');
+  const q=val.trim().toLowerCase();
   if(!q||q.length<2){list.classList.remove('show');return;}
-  const matches=CELEBS.filter(s=>s.toLowerCase().includes(q)&&!stars.find(st=>st.toLowerCase()===s.toLowerCase())).slice(0,7);
+  const matches=CELEBS.filter(s=>s.toLowerCase().includes(q)&&!stars.find(st=>st.toLowerCase()===s.toLowerCase())).slice(0,8);
   if(!matches.length){list.classList.remove('show');return;}
-  list.innerHTML=matches.map((s,i)=>`<div class="ac-item" data-name="${s}" onmousedown="pickAC('${s.replace(/'/g,"\\'")}')" ontouchstart="pickAC('${s.replace(/'/g,"\\'")}')">${s}</div>`).join('');
+  list.innerHTML=matches.map(s=>`<div class="ac-item" data-val="${s}">${s}</div>`).join('');
   list.classList.add('show');
+  // Use mousedown (fires before blur) for desktop + touchstart for mobile
+  list.querySelectorAll('.ac-item').forEach(el=>{
+    el.addEventListener('mousedown',e=>{e.preventDefault();pickAC(el.dataset.val);});
+    el.addEventListener('touchstart',e=>{e.preventDefault();pickAC(el.dataset.val);},{passive:false});
+  });
 }
 function pickAC(name){
   document.getElementById('star-input').value=name;
   document.getElementById('ac-list').classList.remove('show');
-  setTimeout(()=>addStar(),50);
+  document.getElementById('star-input').focus();
 }
 function onStarKey(e){
   const list=document.getElementById('ac-list');
-  const items=list.querySelectorAll('.ac-item');
-  if(e.key==='ArrowDown'){e.preventDefault();acIndex=Math.min(acIndex+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('hover',i===acIndex));}
-  else if(e.key==='ArrowUp'){e.preventDefault();acIndex=Math.max(acIndex-1,0);items.forEach((el,i)=>el.classList.toggle('hover',i===acIndex));}
-  else if(e.key==='Enter'){if(acIndex>=0&&items[acIndex]){pickAC(items[acIndex].dataset.name);}else{addStar();}}
+  const items=[...list.querySelectorAll('.ac-item')];
+  if(!list.classList.contains('show'))return;
+  if(e.key==='ArrowDown'){e.preventDefault();acIdx=Math.min(acIdx+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('active-ac',i===acIdx));}
+  else if(e.key==='ArrowUp'){e.preventDefault();acIdx=Math.max(acIdx-1,0);items.forEach((el,i)=>el.classList.toggle('active-ac',i===acIdx));}
+  else if(e.key==='Enter'){if(acIdx>=0&&items[acIdx])pickAC(items[acIdx].dataset.val);else addStar();}
   else if(e.key==='Escape'){list.classList.remove('show');}
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.star-wrap'))document.getElementById('ac-list')?.classList.remove('show');});
 
-// --- SEARCH ---
+// --- RSS ---
+// Google domain map for IL sites
+const IL_GOOGLE_DOMAINS = {
+  'walla-celebs':'celebs.walla.co.il',
+  'haaretz-gl':'haaretz.co.il',
+  'laisha':'laisha.co.il',
+  'n12':'n12.co.il',
+  'ynet-plus':'ynet.co.il',
+};
+
+async function tryRSS(site){
+  const explicit=site.feed?[site.feed]:[];
+  const domain=site.id.includes('.')?site.id:null;
+  const auto=domain?[
+    `https://${domain}/feed`,
+    `https://${domain}/rss`,
+    `https://${domain}/rss.xml`,
+    `https://feeds.feedburner.com/${domain.split('.')[0]}`,
+  ]:[];
+  const urls=[...explicit,...auto];
+
+  // Try direct RSS
+  for(const f of urls){
+    try{
+      const r=await fetch(RSS_PROXY+encodeURIComponent(f));
+      const d=await r.json();
+      if(d.status==='ok'&&d.items?.length)return{items:d.items,via:'direct'};
+    }catch(e){}
+  }
+
+  // Fallback: Google News with domain
+  const gDomain=domain||IL_GOOGLE_DOMAINS[site.id]||null;
+  if(!gDomain)return null;
+  const lang=site.il?'iw':'en';const gl=site.il?'IL':'US';const ceid=site.il?'IL:iw':'US:en';
+  try{
+    const q=`site:${gDomain}`;
+    const r=await fetch(RSS_PROXY+encodeURIComponent(`https://news.google.com/rss/search?q=${encodeURIComponent(q)}&hl=${lang}&gl=${gl}&ceid=${ceid}`));
+    const d=await r.json();
+    if(d.status==='ok'&&d.items?.length){
+      const kws=site.il?IL_KW:EN_KW;
+      const filtered=d.items.filter(it=>kws.some(k=>(it.title+' '+(it.description||'')).toLowerCase().includes(k)));
+      return{items:filtered.length?filtered:d.items,via:'google'};
+    }
+  }catch(e){}
+  return null;
+}
+
+async function tr(text){
+  if(!text||!text.trim())return text;
+  try{
+    const r=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=he&dt=t&q=${encodeURIComponent(text)}`);
+    const d=await r.json();return d[0].map(c=>c[0]).join('');
+  }catch(e){return text;}
+}
+function extractImg(it){
+  if(it.enclosure?.link&&/\.(jpg|jpeg|png|webp)/i.test(it.enclosure.link))return it.enclosure.link;
+  if(it.thumbnail&&/^https?:\/\//.test(it.thumbnail))return it.thumbnail;
+  const m=(it.description||'').match(/<img[^>]+src=["']([^"']+)["']/i);
+  if(m&&/^https?:\/\//.test(m[1]))return m[1];return null;
+}
+function isHebrew(t){return /[\u05D0-\u05EA]/.test(t||'');}
+function formatTime(ds){
+  if(!ds)return'';const d=new Date(ds);if(isNaN(d))return'';
+  const m=Math.floor((Date.now()-d)/60000);
+  if(m<1)return'עכשיו';if(m<60)return`לפני ${m} דקות`;
+  const h=Math.floor(m/60);if(h<24)return`לפני ${h} שעות`;
+  const dy=Math.floor(h/24);if(dy===1)return'אתמול';if(dy<7)return`לפני ${dy} ימים`;
+  return d.toLocaleDateString('he-IL');
+}
+function escId(id){return(id||'').replace(/[^a-zA-Z0-9]/g,'_').slice(0,40);}
 function matchesSearch(art,q){
-  if(!q)return true;
   const words=q.toLowerCase().split(/\s+/).filter(w=>w.length>0);
   const hay=[art.title||'',art._origTitle||'',art.summary||''].join(' ').toLowerCase();
   return words.every(w=>hay.includes(w));
 }
 
-// Check if article is relevant by keyword list
-function isRelevant(title,desc,il){
-  const hay=(title+' '+desc).toLowerCase();
-  const kws=il?IL_KW:EN_KW;
-  return kws.some(k=>hay.includes(k.toLowerCase()));
+// --- TABS ---
+function switchTab(tab){
+  ['feed','saved','stars','sites'].forEach(t=>{
+    document.getElementById('tb-'+t).classList.toggle('active',t===tab);
+    document.getElementById('page-'+t).classList.toggle('active',t===tab);
+  });
+  if(tab==='saved')renderSaved();
+  if(tab==='stars')renderStars();
+  if(tab==='sites')renderSites();
+}
+function setView(v,el){
+  activeView=v;recOn=false;
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  if(el)el.classList.add('active');
+  if(v==='stars'&&stars.length>0){
+    // Also search Google for each star to get more results
+    fetchStarResults();
+  }
+  renderFeed();
+}
+function toggleRec(el){
+  recOn=!recOn;el.classList.toggle('active',recOn);
+  if(recOn){document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');activeView='all';}
+  else document.getElementById('chip-all').classList.add('active');
+  renderFeed();
+}
+function setCount(n){filterCount=n;document.querySelectorAll('.cpill').forEach(el=>el.classList.toggle('active',el.id==='cpill-'+n));}
+
+// --- SEARCH ---
+async function fetchStarResults(){
+  // For each star, fetch from Google News and add to searchExtra
+  const starExtras=[];
+  await Promise.all(stars.map(async star=>{
+    try{
+      const[r1,r2]=await Promise.all([
+        fetch(RSS_PROXY+encodeURIComponent('https://news.google.com/rss/search?q='+encodeURIComponent(star)+'&hl=iw&gl=IL&ceid=IL:iw')).then(r=>r.json()).catch(()=>({items:[]})),
+        fetch(RSS_PROXY+encodeURIComponent('https://news.google.com/rss/search?q='+encodeURIComponent(star)+'&hl=en&gl=US&ceid=US:en')).then(r=>r.json()).catch(()=>({items:[]}))
+      ]);
+      const combined=[...(r1.items||[]),...(r2.items||[])];
+      const existIds=new Set([...allArticles.map(a=>a._id),...starExtras.map(a=>a._id)]);
+      const newItems=combined.filter(it=>it.link&&!existIds.has(it.link)).slice(0,10);
+      const translated=await Promise.all(newItems.map(async it=>{
+        const isIL=isHebrew(it.title);
+        const desc=(it.description||'').replace(/<[^>]+>/g,'').slice(0,300);
+        const[title,summary]=isIL?[it.title,desc]:await Promise.all([tr(it.title),tr(desc)]);
+        return{title,summary,_origTitle:it.title,_source:'🔍 '+star,_link:it.link,_img:extractImg(it),_pubDate:it.pubDate||'',_id:it.link,_rating:0,_il:isIL,_isSearch:false,_via:'google'};
+      }));
+      starExtras.push(...translated);
+    }catch(e){}
+  }));
+  searchExtra=[...searchExtra,...starExtras];
+  renderFeed();
 }
 
 async function doSearch(){
-  const val=document.getElementById('search-input').value.trim();
-  if(!val)return;
+  const val=document.getElementById('search-input').value.trim();if(!val)return;
   searchQuery=val;
   document.getElementById('search-x').style.display='block';
   document.getElementById('search-term-lbl').textContent=val;
   document.getElementById('search-banner').classList.add('show');
   renderFeed();
-  // Fetch from Google News — both Hebrew and English
   searchExtra=[];
   try{
     const[r1,r2]=await Promise.all([
@@ -410,104 +527,12 @@ async function doSearch(){
     if(searchQuery===val)renderFeed();
   }catch(e){}
 }
-
 function clearSearch(){
   searchQuery='';searchExtra=[];
   document.getElementById('search-input').value='';
   document.getElementById('search-x').style.display='none';
   document.getElementById('search-banner').classList.remove('show');
   renderFeed();
-}
-
-// --- TABS ---
-function switchTab(tab){
-  ['feed','saved','stars','sites'].forEach(t=>{
-    document.getElementById('tb-'+t).classList.toggle('active',t===tab);
-    document.getElementById('page-'+t).classList.toggle('active',t===tab);
-  });
-  if(tab==='saved')renderSaved();
-  if(tab==='stars')renderStars();
-  if(tab==='sites')renderSites();
-}
-function setView(v,el){
-  activeView=v;recOn=false;
-  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
-  if(el)el.classList.add('active');
-  renderFeed();
-}
-function toggleRec(el){
-  recOn=!recOn;
-  el.classList.toggle('active',recOn);
-  if(recOn){document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));el.classList.add('active');activeView='all';}
-  else document.getElementById('chip-all').classList.add('active');
-  renderFeed();
-}
-function setCount(n){filterCount=n;document.querySelectorAll('.cpill').forEach(el=>el.classList.toggle('active',el.id==='cpill-'+n));}
-function escId(id){return(id||'').replace(/[^a-zA-Z0-9]/g,'_').slice(0,40);}
-function isHebrew(text){return /[\u05D0-\u05EA]/.test(text||'');}
-function formatTime(ds){
-  if(!ds)return'';const d=new Date(ds);if(isNaN(d))return'';
-  const m=Math.floor((Date.now()-d)/60000);
-  if(m<1)return'עכשיו';if(m<60)return`לפני ${m} דקות`;
-  const h=Math.floor(m/60);if(h<24)return`לפני ${h} שעות`;
-  const dy=Math.floor(h/24);if(dy===1)return'אתמול';if(dy<7)return`לפני ${dy} ימים`;
-  return d.toLocaleDateString('he-IL');
-}
-
-// --- RSS FETCH ---
-async function fetchRSS(url){
-  try{
-    const r=await fetch(RSS_PROXY+encodeURIComponent(url));
-    const d=await r.json();
-    if(d.status==='ok'&&d.items?.length)return{items:d.items,via:'direct'};
-  }catch(e){}
-  return null;
-}
-
-async function fetchGoogle(domain,il){
-  const lang=il?'iw':'en';const gl=il?'IL':'US';const ceid=il?'IL:iw':'US:en';
-  const q=`site:${domain}`;
-  try{
-    const r=await fetch(RSS_PROXY+encodeURIComponent(`https://news.google.com/rss/search?q=${encodeURIComponent(q)}&hl=${lang}&gl=${gl}&ceid=${ceid}`));
-    const d=await r.json();
-    if(d.status==='ok'&&d.items?.length){
-      // Filter by relevance keywords
-      const filtered=d.items.filter(it=>isRelevant(it.title||'',it.description||'',il));
-      if(filtered.length)return{items:filtered,via:'google'};
-      // If no relevant items, return all (better than nothing)
-      return{items:d.items,via:'google'};
-    }
-  }catch(e){}
-  return null;
-}
-
-async function tryRSS(site){
-  // 1. Try direct RSS feed
-  if(site.feed){
-    const res=await fetchRSS(site.feed);
-    if(res)return res;
-  }
-  // 2. Try Google News
-  const domain=site.googleDomain||site.id;
-  const res=await fetchGoogle(domain,site.il);
-  if(res)return res;
-  return null;
-}
-
-async function tr(text){
-  if(!text||!text.trim())return text;
-  try{
-    const r=await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=he&dt=t&q=${encodeURIComponent(text)}`);
-    const d=await r.json();
-    return d[0].map(c=>c[0]).join('');
-  }catch(e){return text;}
-}
-function extractImg(it){
-  if(it.enclosure?.link&&/\.(jpg|jpeg|png|webp)/i.test(it.enclosure.link))return it.enclosure.link;
-  if(it.thumbnail&&/^https?:\/\//.test(it.thumbnail))return it.thumbnail;
-  const m=(it.description||'').match(/<img[^>]+src=["']([^"']+)["']/i);
-  if(m&&/^https?:\/\//.test(m[1]))return m[1];
-  return null;
 }
 
 // --- LOAD FEED ---
@@ -523,20 +548,25 @@ async function loadFeed(){
     const res=await tryRSS(site);
     const status=res?'ok':'fail';
     siteStatuses[site.id]=status;
-    updateStatusDot(site.id,status);
+    applyStatusDot(site.id,status);
     if(!res)return[];
     return res.items.map(it=>({...it,_source:site.name,_il:site.il,_via:res.via}));
   }));
   persist('g_status',siteStatuses);
 
+  // Merge all, sort by date newest first, take top N
   let raw=results.flat();
-  raw.sort((a,b)=>((b.pubDate?new Date(b.pubDate):0)-(a.pubDate?new Date(a.pubDate):0)));
+  raw.sort((a,b)=>{
+    const da=a.pubDate?new Date(a.pubDate).getTime():0;
+    const db=b.pubDate?new Date(b.pubDate).getTime():0;
+    return db-da;
+  });
   raw=raw.slice(0,filterCount);
 
   if(!raw.length){
     feedEl.innerHTML=`<div class="empty-state"><div class="empty-emoji">😔</div><div class="empty-title">לא נטענו כתבות</div><div class="empty-sub">בדוק חיבור לאינטרנט<br>או נסה אתרים אחרים</div></div>`;
     btn.disabled=false;icon.className='';icon.textContent='⟳';
-    document.getElementById('update-time').textContent='שגיאה בטעינה';return;
+    document.getElementById('update-time').textContent='שגיאה';return;
   }
 
   feedEl.innerHTML=Array(raw.length).fill(skelCard()).join('');
@@ -559,11 +589,12 @@ async function loadFeed(){
   renderFeed();
 }
 
-function updateStatusDot(id,status){
-  const dot=document.getElementById('st-'+id);
-  if(dot){dot.className='site-status-dot '+(status==='ok'?'ok':'fail');dot.textContent=status==='ok'?'✓':'!';}
+function applyStatusDot(id,status){
+  const dotId='st-'+id;
+  const dot=document.getElementById(dotId);
+  if(dot){dot.className='status-dot '+(status==='ok'?'ok':'fail');dot.textContent=status==='ok'?'✓':'!';}
   const pb=document.getElementById('pb-'+id);
-  if(pb)pb.classList.toggle('site-fail',status==='fail');
+  if(pb)pb.classList.toggle('fail',status==='fail'&&!!sites.find(s=>s.id===id));
   renderSites();
 }
 
@@ -573,32 +604,24 @@ function renderFeed(){
   if(!allArticles.length&&!searchQuery)return;
   let arts=[...allArticles];
 
-  // Merge search results
   if(searchQuery&&searchExtra.length){
-    const existIds=new Set(arts.map(a=>a._id));
-    arts=[...arts,...searchExtra.filter(a=>!existIds.has(a._id))];
+    const ex=new Set(arts.map(a=>a._id));
+    arts=[...arts,...searchExtra.filter(a=>!ex.has(a._id))];
   }
-
-  // Search filter — AND logic, searches title+origTitle+summary
   if(searchQuery)arts=arts.filter(a=>matchesSearch(a,searchQuery));
-
-  // View filter
   if(activeView==='stars')arts=arts.filter(a=>matchStar(a));
   else if(activeView==='en')arts=arts.filter(a=>!a._il);
   else if(activeView==='il')arts=arts.filter(a=>a._il);
 
-  // Recommended
   let infoHtml='';
   if(recOn&&!searchQuery){
-    if(prefs.totalRatings<3){feedEl.innerHTML=`<div class="empty-state"><div class="empty-emoji">🧠</div><div class="empty-title">עוד לא מספיק מידע</div><div class="empty-sub">דרג לפחות <strong>3 כתבות</strong><br>ואז תראה כאן המלצות</div></div>`;return;}
+    if(prefs.totalRatings<3){feedEl.innerHTML=`<div class="empty-state"><div class="empty-emoji">🧠</div><div class="empty-title">עוד לא מספיק מידע</div><div class="empty-sub">דרג לפחות <strong>3 כתבות</strong></div></div>`;return;}
     arts=arts.map(a=>({...a,_score:scoreArticle(a)})).filter(a=>a._score>0).sort((a,b)=>b._score-a._score);
     if(!arts.length){feedEl.innerHTML=`<div class="empty-state"><div class="empty-emoji">🤔</div><div class="empty-title">אין המלצות עדיין</div><div class="empty-sub">המשך לדרג כתבות</div></div>`;return;}
-    infoHtml=`<div class="learn-info">✨ <strong>מומלץ לך</strong> — מבוסס על ${prefs.totalRatings} דירוגים שלך.</div>`;
+    infoHtml=`<div class="learn-info">✨ <strong>מומלץ לך</strong> — מבוסס על ${prefs.totalRatings} דירוגים.</div>`;
   }
 
-  if(!arts.length){
-    feedEl.innerHTML=`<div class="empty-state"><div class="empty-emoji">🔍</div><div class="empty-title">${searchQuery?'לא נמצאו תוצאות':'אין כתבות'}</div><div class="empty-sub">${searchQuery?'נסה מילה אחרת':'לחץ רענן'}</div></div>`;return;
-  }
+  if(!arts.length){feedEl.innerHTML=`<div class="empty-state"><div class="empty-emoji">🔍</div><div class="empty-title">${searchQuery?'לא נמצאו תוצאות':'אין כתבות'}</div><div class="empty-sub">${searchQuery?'נסה מילה אחרת':'לחץ רענן'}</div></div>`;return;}
 
   feedEl.innerHTML=infoHtml+arts.map((art,i)=>{
     const eid=escId(art._id);
@@ -608,7 +631,7 @@ function renderFeed(){
     const isNew=i<3&&!recOn&&!searchQuery&&activeView!=='stars';
     const rating=art._rating||0;
     const starsHtml=[1,2,3,4,5].map(n=>`<button class="star-btn ${rating>=n?'lit':''}" onclick="rateArticle('${eid}',${n})">★</button>`).join('');
-    const waT=encodeURIComponent(art.title||'');const waL=encodeURIComponent(art._link||'');
+    const waT=encodeURIComponent(art.title||''),waL=encodeURIComponent(art._link||'');
     return `<div class="article-card" style="animation-delay:${i*0.04}s" id="card-${eid}">
       ${imgHtml}
       <div class="card-source-bar">
@@ -675,11 +698,11 @@ function toggleSave(eid){
 function updateSavedTab(){document.getElementById('tb-saved').textContent=saved.length?`⭐ (${saved.length})`:'⭐ שמורות';}
 function renderSaved(){
   const hdr=document.getElementById('saved-header'),el=document.getElementById('saved-content');
-  if(!saved.length){hdr.innerHTML='';el.innerHTML=`<div class="empty-state"><div class="empty-emoji">⭐</div><div class="empty-title">אין כתבות שמורות</div><div class="empty-sub">לחץ "שמור" לשמירת כתבות</div></div>`;return;}
+  if(!saved.length){hdr.innerHTML='';el.innerHTML=`<div class="empty-state"><div class="empty-emoji">⭐</div><div class="empty-title">אין כתבות שמורות</div></div>`;return;}
   hdr.innerHTML=`<div class="saved-meta"><span>${saved.length} כתבות שמורות</span><button class="clear-btn" onclick="clearSaved()">מחק הכל</button></div>`;
   el.innerHTML=saved.map((art,i)=>{
     const imgHtml=art._img?`<img class="card-img" src="${art._img}" onerror="this.style.display='none'" loading="lazy">`:'';
-    const waT=encodeURIComponent(art.title||'');const waL=encodeURIComponent(art._link||'');
+    const waT=encodeURIComponent(art.title||''),waL=encodeURIComponent(art._link||'');
     return `<div class="article-card" style="animation-delay:${i*0.05}s">
       ${imgHtml}
       <div class="card-source-bar"><div class="source-dot"></div><div class="source-name">${art._source}</div><div class="pub-time">${formatTime(art._pubDate)}</div></div>
@@ -703,7 +726,7 @@ function addStar(){
   document.getElementById('ac-list').classList.remove('show');
   const val=document.getElementById('star-input').value.trim();
   if(!val){document.getElementById('star-err').textContent='נא להזין שם';return;}
-  if(stars.find(s=>s.toLowerCase()===val.toLowerCase())){document.getElementById('star-err').textContent='כוכב זה כבר ברשימה';return;}
+  if(stars.find(s=>s.toLowerCase()===val.toLowerCase())){document.getElementById('star-err').textContent='כבר ברשימה';return;}
   stars.push(val);persist('g_stars',stars);
   document.getElementById('star-input').value='';document.getElementById('star-err').textContent='';renderStars();
 }
@@ -720,50 +743,46 @@ function renderStars(){
 }
 
 // --- SITES ---
-function toggleSite(id,name,icon,il,feed,googleDomain){
+function toggleSite(id,name,icon,il,feed){
   const idx=sites.findIndex(s=>s.id===id);
-  if(idx>-1){sites.splice(idx,1);}
-  else{sites.push({id,name,icon,il,feed:feed||null,googleDomain:googleDomain||null});}
-  persist('g_sites_v5',sites);renderSites();
+  if(idx>-1)sites.splice(idx,1);
+  else sites.push({id,name,icon,il,feed:feed||null});
+  persist('g_sites_v6',sites);renderSites();
 }
 function addManual(il){
   const inp=document.getElementById(il?'il-url-input':'en-url-input');
-  let val=inp.value.trim();
-  if(!val){setErr('נא להזין כתובת',il);return;}
+  let val=inp.value.trim();if(!val){setErr('נא להזין כתובת',il);return;}
   const feed=val.startsWith('http')?val:null;
-  const gd=!feed?val.replace(/^https?:\/\//,'').split('/')[0]:null;
-  const id=(feed||gd||'').replace(/[^a-z0-9.-]/gi,'').slice(0,40)||('c'+Date.now());
+  const id=(val.replace(/^https?:\/\//,'')).split('/')[0]||('c'+Date.now());
   if(sites.find(s=>s.id===id)){setErr('האתר כבר קיים',il);return;}
   const name=id.split('.')[0];
-  sites.push({id,name:name.charAt(0).toUpperCase()+name.slice(1),icon:il?'🇮🇱':'📰',il,feed,googleDomain:gd});
-  persist('g_sites_v5',sites);renderSites();inp.value='';setErr('',il);
+  sites.push({id,name:name.charAt(0).toUpperCase()+name.slice(1),icon:il?'🇮🇱':'📰',il,feed});
+  persist('g_sites_v6',sites);renderSites();inp.value='';setErr('',il);
 }
-function removeSite(i){sites.splice(i,1);persist('g_sites_v5',sites);renderSites();}
+function removeSite(i){sites.splice(i,1);persist('g_sites_v6',sites);renderSites();}
 function setErr(msg,il){const el=document.getElementById(il?'il-err-msg':'en-err-msg');if(el)el.textContent=msg;}
 
 function renderSites(){
-  // Update preset button states
   document.querySelectorAll('.preset-btn[id^="pb-"]').forEach(btn=>{
-    const id=btn.id.replace('pb-','');
+    const id=btn.id.slice(3);
     const isAdded=!!sites.find(s=>s.id===id);
     btn.classList.toggle('added',isAdded);
-    const status=siteStatuses[id];
-    if(status){
+    const st=siteStatuses[id];
+    if(st){
       const dot=document.getElementById('st-'+id);
-      if(dot){dot.className='site-status-dot '+(status==='ok'?'ok':'fail');dot.textContent=status==='ok'?'✓':'!';}
-      btn.classList.toggle('site-fail',status==='fail'&&isAdded);
+      if(dot){dot.className='status-dot '+(st==='ok'?'ok':'fail');dot.textContent=st==='ok'?'✓':'!';}
+      btn.classList.toggle('fail',st==='fail'&&isAdded);
     }
   });
   const el=document.getElementById('sites-list');
-  if(!sites.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:18px 0">אין אתרים נבחרים. לחץ על אתר למעלה להוספה.</div>';return;}
+  if(!sites.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:18px 0">אין אתרים. לחץ על אתר למעלה.</div>';return;}
   el.innerHTML=sites.map((s,i)=>{
-    const status=siteStatuses[s.id];
-    const isFail=status==='fail';
+    const st=siteStatuses[s.id];const isFail=st==='fail';
     return `<div class="site-item ${s.il?'il':''} ${isFail?'site-fail':''}">
       <div class="site-icon ${s.il?'il':''}">${s.icon||'📰'}</div>
       <div class="site-info">
-        <div class="site-info-name">${s.name} ${isFail?'<span class="fail-tag">לא זמין</span>':''}</div>
-        <div class="site-info-url">${s.feed||s.googleDomain||s.id}</div>
+        <div class="site-info-name">${s.name}${isFail?' <span class="fail-tag">לא זמין</span>':''}</div>
+        <div class="site-info-url">${s.feed||s.id}</div>
       </div>
       <button class="del-btn" onclick="removeSite(${i})">×</button>
     </div>`;
@@ -776,7 +795,7 @@ window.addEventListener('load',()=>{
   loadData();
   Object.entries(siteStatuses).forEach(([id,st])=>{
     const dot=document.getElementById('st-'+id);
-    if(dot){dot.className='site-status-dot '+(st==='ok'?'ok':'fail');dot.textContent=st==='ok'?'✓':'!';}
+    if(dot){dot.className='status-dot '+(st==='ok'?'ok':'fail');dot.textContent=st==='ok'?'✓':'!';}
   });
   renderSites();renderStars();updateSavedTab();
 });
