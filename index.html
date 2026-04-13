@@ -130,6 +130,19 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 .saved-meta{font-size:11px;color:var(--muted);margin-bottom:11px;display:flex;align-items:center;justify-content:space-between}
 .clear-btn{padding:3px 9px;border:1.5px solid var(--border);border-radius:20px;background:white;font-family:'Heebo',sans-serif;font-size:10px;color:var(--muted);cursor:pointer}
 .star-info{background:linear-gradient(90deg,var(--pink-light),white);border-radius:12px;padding:9px 14px;margin-bottom:11px;font-size:12px;color:var(--pink-dark);font-weight:600}
+.tw-card{background:white;border-radius:16px;margin-bottom:11px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.07);border:1px solid #e1e8ed;animation:fadeUp 0.3s ease both;padding:13px}
+.tw-header{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.tw-avatar{width:36px;height:36px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:white;flex-shrink:0}
+.tw-name{font-size:13px;font-weight:700;color:#0f1419}
+.tw-handle{font-size:11px;color:#536471}
+.tw-time{font-size:10px;color:#536471;margin-right:auto}
+.tw-body{font-size:13px;color:#0f1419;line-height:1.5;margin-bottom:9px}
+.tw-actions{display:flex;gap:8px;align-items:center}
+.tw-link{font-size:11px;color:#1d9bf0;font-weight:500;text-decoration:none}
+.tw-x-logo{font-size:13px;font-weight:900;color:#000;margin-right:auto}
+.tw-handle-item{display:flex;align-items:center;gap:9px;padding:9px 11px;background:white;border-radius:13px;margin-bottom:6px;border:1px solid #e1e8ed}
+.tw-handle-icon{width:32px;height:32px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:white;flex-shrink:0}
+.tw-handle-name{flex:1;font-size:13px;font-weight:600;color:#0f1419;direction:ltr;text-align:left}
 </style>
 </head>
 <body>
@@ -144,6 +157,7 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 <div class="tabs">
   <button class="tab-btn active" id="tb-feed" onclick="switchTab('feed')">📰 פיד</button>
   <button class="tab-btn" id="tb-saved" onclick="switchTab('saved')">⭐ שמורות</button>
+  <button class="tab-btn" id="tb-twitter" onclick="switchTab('twitter')">𝕏 טוויטר</button>
   <button class="tab-btn" id="tb-stars" onclick="switchTab('stars')">🌟 כוכבים</button>
   <button class="tab-btn" id="tb-sites" onclick="switchTab('sites')">🌐 אתרים</button>
 </div>
@@ -180,6 +194,26 @@ body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-h
 
 <!-- SAVED -->
 <div class="page" id="page-saved"><div id="saved-header"></div><div id="saved-content"></div></div>
+
+<!-- TWITTER -->
+<div class="page" id="page-twitter">
+  <div class="feed-top">
+    <div class="update-time" id="tw-update-time">לחץ רענן לטעינה</div>
+    <button class="refresh-btn" id="tw-refresh-btn" onclick="loadTwitterFeed()"><span id="tw-refresh-icon">⟳</span> רענן</button>
+  </div>
+  <div id="tw-feed-content">
+    <div class="empty-state"><div class="empty-emoji">𝕏</div><div class="empty-title">ציוצים חדשים</div><div class="empty-sub">לחץ "רענן" לטעינת ציוצים מהחשבונות שלך</div></div>
+  </div>
+  <div style="margin-top:18px">
+    <div class="section-label">⚙️ ניהול חשבונות מעוקבים</div>
+    <div class="add-form" style="margin-bottom:5px">
+      <input type="text" id="tw-handle-input" placeholder="@username" inputmode="text" autocomplete="off" autocorrect="off" style="direction:ltr;text-align:left" onkeydown="if(event.key==='Enter')addTwitterHandle()"/>
+      <button class="add-btn" style="background:#000" onclick="addTwitterHandle()">הוסף</button>
+    </div>
+    <div class="err-msg" id="tw-err-msg"></div>
+    <div id="tw-handles-list"></div>
+  </div>
+</div>
 
 <!-- STARS -->
 <div class="page" id="page-stars">
@@ -590,13 +624,14 @@ function doRate(artKey,r){
 
 // TABS
 function switchTab(tab){
-  ['feed','saved','stars','sites'].forEach(t=>{
+  ['feed','saved','twitter','stars','sites'].forEach(t=>{
     document.getElementById('tb-'+t).classList.toggle('active',t===tab);
     document.getElementById('page-'+t).classList.toggle('active',t===tab);
   });
   if(tab==='saved')renderSaved();
   if(tab==='stars')renderStars();
   if(tab==='sites')renderSites();
+  if(tab==='twitter')renderTwitterHandles();
 }
 function setView(v,el){
   activeView=v;recOn=false;
@@ -910,10 +945,134 @@ function renderSites(){
 
 function skelCard(){return`<div class="skeleton-card"><div style="padding:6px 12px;border-bottom:1px solid rgba(194,24,91,0.1)"><div class="skel" style="height:10px;width:65px"></div></div><div style="padding:11px 13px"><div class="skel" style="height:14px;width:90%;margin-bottom:6px"></div><div class="skel" style="height:12px;width:55%;margin-bottom:9px"></div><div class="skel" style="height:50px"></div></div></div>`;}
 
+// ===== TWITTER / X via RSSHub =====
+const RSSHUB_MIRRORS=[
+  'https://rsshub.app',
+  'https://rss.shab.fun',
+  'https://rsshub.rssforever.com',
+];
+
+let twHandles=[];
+let twTweets=[];
+
+function loadTwData(){
+  try{twHandles=JSON.parse(localStorage.getItem('g_tw_handles')||'null')||['noakirel','therealomeradam'];}catch(e){twHandles=['noakirel','therealomeradam'];}
+}
+
+async function fetchUserTweets(handle){
+  for(const mirror of RSSHUB_MIRRORS){
+    const url=`${mirror}/twitter/user/${handle}`;
+    try{
+      const r=await fetch(RSS+encodeURIComponent(url));
+      const d=await r.json();
+      if(d.status==='ok'&&d.items?.length){
+        return d.items.slice(0,15).map(it=>({
+          handle,
+          title:it.title||'',
+          link:it.link||'',
+          pubDate:it.pubDate||'',
+          _mirror:mirror
+        }));
+      }
+    }catch(e){}
+  }
+  return[];
+}
+
+async function loadTwitterFeed(){
+  if(!twHandles.length){
+    document.getElementById('tw-feed-content').innerHTML='<div class="empty-state"><div class="empty-emoji">𝕏</div><div class="empty-title">אין חשבונות</div><div class="empty-sub">הוסף חשבונות למטה</div></div>';
+    return;
+  }
+  const btn=document.getElementById('tw-refresh-btn'),icon=document.getElementById('tw-refresh-icon');
+  btn.disabled=true;icon.textContent='↻';icon.className='spin';
+  document.getElementById('tw-update-time').textContent='טוען ציוצים...';
+  const feedEl=document.getElementById('tw-feed-content');
+  feedEl.innerHTML=Array(4).fill(skelCard()).join('');
+
+  const results=await Promise.all(twHandles.map(h=>fetchUserTweets(h)));
+  twTweets=results.flat();
+  twTweets.sort((a,b)=>((b.pubDate?new Date(b.pubDate):0)-(a.pubDate?new Date(a.pubDate):0)));
+
+  btn.disabled=false;icon.className='';icon.textContent='⟳';
+
+  if(!twTweets.length){
+    const now=new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('tw-update-time').textContent=`נכשל ${now}`;
+    feedEl.innerHTML='<div class="empty-state"><div class="empty-emoji">😔</div><div class="empty-title">לא נטענו ציוצים</div><div class="empty-sub">ייתכן ש-RSSHub חסום כרגע. נסה שוב מאוחר יותר.</div></div>';
+    return;
+  }
+
+  const now=new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('tw-update-time').textContent=`עודכן ${now} • ${twTweets.length} ציוצים`;
+  renderTweets();
+}
+
+function renderTweets(){
+  const feedEl=document.getElementById('tw-feed-content');
+  if(!twTweets.length){feedEl.innerHTML='';return;}
+  feedEl.innerHTML=twTweets.map(tw=>{
+    const init=(tw.handle||'?').charAt(0).toUpperCase();
+    const ago=fmtTime(tw.pubDate);
+    const text=(tw.title||'').replace(/^RT @\w+: /,'');
+    const isRT=tw.title.startsWith('RT @');
+    return`<div class="tw-card">
+      <div class="tw-header">
+        <div class="tw-avatar">${init}</div>
+        <div>
+          <div class="tw-name">@${tw.handle}</div>
+          ${isRT?'<div class="tw-handle">🔁 ריטוויט</div>':''}
+        </div>
+        <div class="tw-time">${ago}</div>
+        <span class="tw-x-logo">𝕏</span>
+      </div>
+      <div class="tw-body">${text}</div>
+      <div class="tw-actions">
+        ${tw.link?`<a class="tw-link" href="${tw.link}" target="_blank">פתח בX ↗</a>`:''}
+        <button class="action-btn wa-btn" onclick="sharetweet('${encodeURIComponent(text)}','${encodeURIComponent(tw.link||'')}')">📤 שתף</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function sharetweet(textEnc,linkEnc){
+  const text=decodeURIComponent(textEnc),link=decodeURIComponent(linkEnc);
+  const msg=text+(link?'\n'+link:'');
+  if(navigator.share){navigator.share({text:msg,url:link||undefined}).catch(()=>window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank'));}
+  else window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+
+function addTwitterHandle(){
+  let val=document.getElementById('tw-handle-input').value.trim().replace(/^@/,'').toLowerCase();
+  if(!val){document.getElementById('tw-err-msg').textContent='נא להזין שם משתמש';return;}
+  if(twHandles.includes(val)){document.getElementById('tw-err-msg').textContent='כבר ברשימה';return;}
+  twHandles.push(val);
+  localStorage.setItem('g_tw_handles',JSON.stringify(twHandles));
+  document.getElementById('tw-handle-input').value='';
+  document.getElementById('tw-err-msg').textContent='';
+  renderTwitterHandles();
+}
+
+function removeTwitterHandle(i){
+  twHandles.splice(i,1);
+  localStorage.setItem('g_tw_handles',JSON.stringify(twHandles));
+  renderTwitterHandles();
+}
+
+function renderTwitterHandles(){
+  const el=document.getElementById('tw-handles-list');
+  if(!twHandles.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;text-align:center;padding:18px 0">אין חשבונות. הוסף למעלה.</div>';return;}
+  el.innerHTML=twHandles.map((h,i)=>`<div class="tw-handle-item">
+    <div class="tw-handle-icon">${h.charAt(0).toUpperCase()}</div>
+    <div class="tw-handle-name">@${h}</div>
+    <button class="del-btn" onclick="removeTwitterHandle(${i})">×</button>
+  </div>`).join('');
+}
+
 window.addEventListener('load',()=>{
-  loadData();
+  loadData();loadTwData();
   Object.entries(siteStatus).forEach(([id,st])=>setDot(id,st));
-  renderSites();renderStars();updateSavedTab();
+  renderSites();renderStars();updateSavedTab();renderTwitterHandles();
 });
 </script>
 </body>
